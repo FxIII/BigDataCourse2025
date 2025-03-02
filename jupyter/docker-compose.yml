@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  jupyter:
+    image: quay.io/jupyter/all-spark-notebook
+    tty: true
+    user: root
+    environment:
+      GRANT_SUDO: 'yes'
+      JUPYTER_ENABLE_LAB: 'yes'
+      KEYRING_CRYPTFILE_FOLDER: /home/jovyan/work/.keyring.cfg
+      KEYRING_CRYPTFILE_PASSWORD: '123487012384701234678129384712641'
+      PYTHONPATH: /home/jovyan/work/lib
+      JAVA_HOME: /usr/lib/jvm/java-17-openjdk-arm64
+    ports:
+    - 8888:8888
+    volumes:
+     - $PWD/data/work:/home/jovyan/work
+     - $PWD/data/config:/home/jovyan/.jupyter/
