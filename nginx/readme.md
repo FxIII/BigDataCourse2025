@@ -11,7 +11,6 @@ download some static website, mount into nginx and expose the web port
 ```bash
 sh fetch_sites.sh
 
-docker run -v $PWD/html-website-templates/Landing\ Page\ Website\ for\ 
-App/:/usr/share/nginx/htm$
+docker run -v $PWD/html-website-templates/Landing\ Page\ Website\ for\ App/:/usr/share/nginx/html -p 8081:80 -d --name container nginx
 ```
 open browser to http://localhost:8081

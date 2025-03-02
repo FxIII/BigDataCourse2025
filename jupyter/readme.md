@@ -15,11 +15,11 @@ We mount working direction and configuration directory so they will survive the 
 Some control environment variable are injected and the port `8888` is forwarded
 
 There is a more convenient way to describe such services using docker compose:
-[docker-compose.yml](./docker-compose.yaml)
+[docker-compose.yml](./docker-compose.yml)
 
 By executing this command:
 ```bash
-docker compose up -d 
+docker compose up -d
 ```
-docker will read the compose file and setup all available services, these service will also 
+docker will read the compose file and setup all available services, these service will also
 be connected into a custom network so they can communicate to each other by service name
