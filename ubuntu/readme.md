@@ -29,4 +29,3 @@ docker run --rm --name container -e foo=bar -it ubuntu
 #from within the container
 echo $foo
 ```
-

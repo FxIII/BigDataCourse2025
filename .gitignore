@@ -1,0 +1,5 @@
+hadoop-3.2.1
+.DS_Store
+minio/data/minio
+jupyter/data/config/lab/workspaces/
+.ipynb_checkpoints

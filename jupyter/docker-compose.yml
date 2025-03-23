@@ -11,8 +11,20 @@ services:
       KEYRING_CRYPTFILE_PASSWORD: '123487012384701234678129384712641'
       PYTHONPATH: /home/jovyan/work/lib
       JAVA_HOME: /usr/lib/jvm/java-17-openjdk-arm64
+      # hadoop config
+      HADOOP_HOME: /opt/hadoop-3.2.1
+      PATH: /opt/conda/bin:/opt/conda/condabin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/spark/bin:/opt/hadoop-3.2.1/bin/
     ports:
     - 8888:8888
     volumes:
      - $PWD/data/work:/home/jovyan/work
      - $PWD/data/config:/home/jovyan/.jupyter/
+     - $PWD/data/data:/home/jovyan/data
+     # hadoop installation
+     - $PWD/data/hadoop-3.2.1:/opt/hadoop-3.2.1
+    networks:
+     - default
+     - docker-hadoop_default
+networks:
+  docker-hadoop_default:
+    external: true
