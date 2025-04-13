@@ -22,9 +22,3 @@ services:
      - $PWD/data/data:/home/jovyan/data
      # hadoop installation
      - $PWD/data/hadoop-3.2.1:/opt/hadoop-3.2.1
-    networks:
-     - default
-     - docker-hadoop_default
-networks:
-  docker-hadoop_default:
-    external: true
