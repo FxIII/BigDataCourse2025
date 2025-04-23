@@ -1,0 +1,52 @@
+services:
+  clickhouse:
+    image: 'clickhouse/clickhouse-server:${CHVER:-latest}'
+    user: '101:101'
+    container_name: clickhouse
+    hostname: clickhouse
+    volumes:
+      - ${PWD}/fs/volumes/clickhouse/etc/clickhouse-server/config.d/config.xml:/etc/clickhouse-server/config.d/config.xml
+      - ${PWD}/fs/volumes/clickhouse/etc/clickhouse-server/users.d/users.xml:/etc/clickhouse-server/users.d/users.xml
+      - ${PWD}/fs/volumes/clickhouse/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - '8123:8123'
+      - '9000:9000'
+    depends_on:
+      - clickhouse-keeper
+  clickhouse-keeper:
+    image: 'clickhouse/clickhouse-keeper:${CHKVER:-latest-alpine}'
+    user: '101:101'
+    container_name: clickhouse-keeper
+    hostname: clickhouse-keeper
+    volumes:
+      - ${PWD}/fs/volumes/clickhouse-keeper/etc/clickhouse-keeper/keeper_config.xml:/etc/clickhouse-keeper/keeper_config.xml
+    ports:
+      - '127.0.0.1:9181:9181'
+  jupyter:
+    image: 'jupyter/datascience-notebook:latest'
+    container_name: jupyter
+    hostname: jupyter
+    volumes:
+      - ${PWD}/fs/volumes/jupyter/notebooks:/home/jovyan/work
+    ports:
+      - '8889:8888'
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    command: "start-notebook.sh --NotebookApp.token='big_data_course'"
+    depends_on:
+      - clickhouse
+    networks:
+      - default
+  tabix:
+    image: 'spoonest/clickhouse-tabix-web-client'
+    container_name: tabix
+    hostname: tabix
+    ports:
+      - '8080:80'
+    depends_on:
+      - clickhouse
+    networks:
+      - default
+networks:
+  default:
+    driver: bridge
