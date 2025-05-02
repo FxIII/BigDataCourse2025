@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  #stack:
+  #  image: redis/redis-stack:latest
+  #  restart: always
+  #  ports:
+  #    - 6379:6379
+  #  volumes:
+  #    - $PWD/data/config/redis.conf:/redis-stack.conf
+  #    - $PWD/data/config/cluster_setup.sh:/cluster_setup.sh
+
+  master:
+    image: redis/redis-stack:latest
+    deploy:
+      replicas: 3
+    restart: always
+    volumes:
+      - $PWD/data/config/redis.conf:/redis-stack.conf
+
+  replica:
+    image: redis/redis-stack:latest
+    deploy:
+      replicas: 3
+    restart: always
+    volumes:
+      - $PWD/data/config/redis.conf:/redis-stack.conf
+
+
+  redisinsight:
+    image: redis/redisinsight
+    ports:
+      - 8001:5540
+    volumes:
+      - $PWD/data/redisinsight:/data
+
+  cluster-setup:
+    image: redis/redis-stack:latest
+    deploy:
+      replicas: 1
+    volumes:
+      - $PWD/data/config/redis.conf:/redis-stack.conf
+      - $PWD/data/config/cluster_setup.sh:/cluster_setup.sh
+    command: >
+      /bin/sh /cluster_setup.sh
+    depends_on:
+      #- stack
+      - master
+      - replica
