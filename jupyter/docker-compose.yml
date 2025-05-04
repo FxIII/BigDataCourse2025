@@ -20,5 +20,6 @@ services:
      - $PWD/data/work:/home/jovyan/work
      - $PWD/data/config:/home/jovyan/.jupyter/
      - $PWD/data/data:/home/jovyan/data
+     - $PWD/data/downloads:/home/jovyan/downloads
      # hadoop installation
      - $PWD/data/hadoop-3.2.1:/opt/hadoop-3.2.1
