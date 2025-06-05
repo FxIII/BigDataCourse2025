@@ -5,3 +5,4 @@ jupyter/data/config/lab/workspaces/
 .ipynb_checkpoints
 jupyter/data/downloads
 redis/data/redisinsight
+jupyter/data/work/Dask/data
